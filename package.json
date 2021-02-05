@@ -1,0 +1,16 @@
+{
+  "name": "rps-slack-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/bolt": "^3.1.1",
+    "dotenv": "^8.2.0"
+  }
+}
