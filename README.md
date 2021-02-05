@@ -1,4 +1,4 @@
-#Rock-Paper-Scissors Slack App
+# Rock-Paper-Scissors Slack App
 
 ![RPS in action](./assets/rps-in-action.gif)
 
