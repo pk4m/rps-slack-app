@@ -127,6 +127,6 @@ app.action(/rock|paper|scissors/, async ({ ack, respond ,payload: { block_id: ga
 });
 
 (async () => {
-  await app.start(3000);
+  await app.start(process.env.PORT || 3000);
   console.log('RPS is running!');
 })();
