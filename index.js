@@ -1,14 +1,10 @@
 require('dotenv').config();
-const { App, LogLevel } = require('@slack/bolt');
+require('./db/mongoose');
 const { extractUserIdFromEscapedFormat } = require('./util');
 const Game = require('./game-response-store');
-const game = new Game();
+const app = require('./app');
 
-const app = new App({
-  token: process.env.BOT_TOKEN,
-  signingSecret: process.env.SIGNING_SECRET,
-  logLevel: LogLevel.DEBUG
-});
+const game = new Game();
 
 const helpResponse = {
   text: 'Usage: /rps @user',
