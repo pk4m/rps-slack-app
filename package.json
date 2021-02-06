@@ -1,13 +1,13 @@
 {
   "name": "rps-slack-app",
   "version": "0.0.2",
-  "description": "",
+  "description": "Rock Paper Scissors Slack App",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Pandurang Kamath",
   "license": "ISC",
   "dependencies": {
     "@slack/bolt": "^3.1.1",
