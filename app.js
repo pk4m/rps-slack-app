@@ -10,29 +10,42 @@ const app = new App({
   installationStore: {
     storeInstallation: async (installation) => {
       let _id;
-      if (installation.isEnterpriseInstall) {
+      if (installation.isEnterpriseInstall && installation.enterprise !== undefined) {
         _id = installation.enterprise.id;
-      } else {
+      } else if (installation.team !== undefined) {
         _id = installation.team.id;
+      } else {
+        throw new Error('Failed saving installation data to installationStore');
       }
       await OAuth.findByIdAndDelete(_id).exec();
       const install = new OAuth({_id, installation});
       return install.save();
     },
     fetchInstallation: async (installQuery) => {
-      if (installQuery.isEnterpriseInstall && installQuery.enterpriseId) {
-        return OAuth.findById(installQuery.enterpriseId).exec();
-      }
-      if (installQuery.teamId) {
-        const result = await OAuth.findById(installQuery.teamId).exec();
-        if (result) {
-          return result.installation;
-        }
+      let _id;
+      if (installQuery.isEnterpriseInstall && installQuery.enterpriseId !== undefined) {
+        _id = installQuery.enterpriseId;
+      } else if (installQuery.teamId !== undefined) {
+        _id = installQuery.teamId;
+      } 
+      const result = await OAuth.findById(_id).exec();
+      if (result) {
+        return result.installation;
       }
       throw new Error('Failed fetching installation');
+    },
+    deleteInstallation: async (installQuery) => {
+      let _id;
+      if (installQuery.isEnterpriseInstall && installQuery.enterpriseId !== undefined) {
+        _id = installQuery.enterpriseId;
+      } else if (installQuery.teamId !== undefined) {
+        _id = installQuery.teamId;
+      }
+      await OAuth.findByIdAndDelete(_id).exec();
     }
   },
   installerOptions: {
+    directInstall: true,
     callbackOptions: {
       success: (installation, options, callbackReq, callbackRes) => {
         callbackRes.write('Success. Please return back to Slack to use the app.\n');
